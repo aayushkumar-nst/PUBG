@@ -1,3 +1,24 @@
+/* CSS Variables for theme colors */
+:root {
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --bg-dark: #0f172a;
+    --bg-darker: #020617;
+    --bg-card: #1e293b;
+    --text-light: #e2e8f0;
+    --text-muted: #94a3b8;
+    --transition: all 0.3s ease;
+}
+
+/* Light mode variables */
+body.light-mode {
+    --bg-dark: #f1f5f9;
+    --bg-darker: #e2e8f0;
+    --bg-card: #ffffff;
+    --text-light: #1e293b;
+    --text-muted: #475569;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,10 +26,36 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     line-height: 1.6;
-    color: #e0e0e0;
-    background-color: #1a1a1a;
+    color: var(--text-light);
+    background-color: var(--bg-dark);
+    transition: var(--transition);
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    background: var(--bg-card);
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    transition: var(--transition);
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
 }
 
 .container {
@@ -19,10 +66,11 @@ body {
 }
 
 header {
-    background-color: #0d0d0d;
-    color: white;
+    background-color: var(--bg-darker);
+    color: var(--text-light);
     padding: 20px 0;
-    border-bottom: 3px solid #ff6b35;
+    border-bottom: 3px solid var(--primary);
+    transition: var(--transition);
 }
 
 header .container {
@@ -33,6 +81,10 @@ header .container {
 
 header h1 {
     font-size: 28px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 nav ul {
@@ -42,21 +94,39 @@ nav ul {
 }
 
 nav a {
-    color: white;
+    color: var(--text-light);
     text-decoration: none;
     font-size: 16px;
+    transition: var(--transition);
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: var(--transition);
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 nav a:hover {
-    color: goldenrod;
+    color: var(--primary);
 }
 
 .hero {
-    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+    color: var(--text-light);
     padding: 80px 0;
     text-align: center;
-    border-bottom: 2px solid #ff6b35;
+    border-bottom: 2px solid var(--primary);
+    transition: var(--transition);
 }
 
 .hero h2 {
@@ -67,35 +137,39 @@ nav a:hover {
 .hero p {
     font-size: 18px;
     margin-bottom: 25px;
+    color: var(--text-muted);
 }
 
 .btn {
     display: inline-block;
-    background-color: #ff6b35;
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: white;
     padding: 12px 30px;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .btn:hover {
-    background-color: goldenrod;
-    transform: scale(1.05);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
 }
 
 .features {
     padding: 60px 0;
-    background-color: #1a1a1a;
+    background-color: var(--bg-dark);
+    transition: var(--transition);
 }
 
 .features h2 {
     text-align: center;
     font-size: 32px;
     margin-bottom: 40px;
-    color: #ff6b35;
+    color: var(--primary);
 }
 
 .games {
@@ -106,57 +180,86 @@ nav a:hover {
 }
 
 .game-card {
-    background-color: #2a2a2a;
-    border: 2px solid #ff6b35;
-    border-radius: 8px;
+    background-color: var(--bg-card);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
     padding: 20px;
     width: 300px;
     text-align: center;
+    transition: var(--transition);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
 }
 
 .game-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 8px;
     margin-bottom: 15px;
+    transition: var(--transition);
+}
+
+.game-card:hover img {
+    transform: scale(1.05);
 }
 
 .game-card h3 {
-    color: #ff6b35;
+    color: var(--primary);
     margin-bottom: 10px;
+}
+
+.game-card p {
+    color: var(--text-muted);
 }
 
 .news {
     padding: 60px 0;
-    background-color: #0d0d0d;
+    background-color: var(--bg-darker);
+    transition: var(--transition);
 }
 
 .news h2 {
     text-align: center;
     font-size: 32px;
     margin-bottom: 40px;
-    color: #ff6b35;
+    color: var(--primary);
 }
 
 .news-item {
-    background-color: #2a2a2a;
+    background-color: var(--bg-card);
     padding: 25px;
     margin-bottom: 20px;
-    border-left: 4px solid #ff6b35;
+    border-left: 4px solid var(--primary);
+    border-radius: 0 8px 8px 0;
+    transition: var(--transition);
+}
+
+.news-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 5px 20px rgba(59, 130, 246, 0.15);
 }
 
 .news-item h3 {
-    color: #ff6b35;
+    color: var(--primary);
     margin-bottom: 10px;
 }
 
+.news-item p {
+    color: var(--text-muted);
+}
+
 .page-header {
-    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+    color: var(--text-light);
     padding: 50px 0;
     text-align: center;
-    border-bottom: 2px solid #ff6b35;
+    border-bottom: 2px solid var(--primary);
+    transition: var(--transition);
 }
 
 .page-header h2 {
@@ -164,9 +267,14 @@ nav a:hover {
     margin-bottom: 10px;
 }
 
+.page-header p {
+    color: var(--text-muted);
+}
+
 .esports-content {
     padding: 60px 0;
-    background-color: #1a1a1a;
+    background-color: var(--bg-dark);
+    transition: var(--transition);
 }
 
 .esports-info {
@@ -180,11 +288,12 @@ nav a:hover {
     width: 400px;
     height: 300px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .info-text h3 {
-    color: #ff6b35;
+    color: var(--primary);
     font-size: 24px;
     margin-bottom: 15px;
 }
@@ -192,13 +301,14 @@ nav a:hover {
 .info-text p {
     margin-bottom: 15px;
     line-height: 1.8;
+    color: var(--text-muted);
 }
 
 .teams h3 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 30px;
-    color: #ff6b35;
+    color: var(--primary);
 }
 
 .team-list {
@@ -209,45 +319,62 @@ nav a:hover {
 }
 
 .team-card {
-    background-color: #2a2a2a;
+    background-color: var(--bg-card);
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
     text-align: center;
     width: 250px;
-    border: 2px solid #ff6b35;
+    border: 2px solid var(--primary);
+    transition: var(--transition);
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
 }
 
 .team-card img {
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 8px;
     margin-bottom: 15px;
 }
 
 .team-card h4 {
-    color: #ff6b35;
+    color: var(--primary);
     margin-bottom: 8px;
+}
+
+.team-card p {
+    color: var(--text-muted);
 }
 
 .cta-section {
     text-align: center;
     padding: 40px 0;
-    background-color: #2a2a2a;
+    background-color: var(--bg-card);
     margin-top: 50px;
-    border-radius: 8px;
-    border: 2px solid #ff6b35;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    transition: var(--transition);
 }
 
 .cta-section h3 {
     font-size: 24px;
     margin-bottom: 15px;
-    color: #ff6b35;
+    color: var(--primary);
+}
+
+.cta-section p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
 }
 
 .tournament-content {
     padding: 60px 0;
-    background-color: #1a1a1a;
+    background-color: var(--bg-dark);
+    transition: var(--transition);
 }
 
 .tournament-list {
@@ -259,41 +386,49 @@ nav a:hover {
 }
 
 .tournament-card {
-    background-color: #2a2a2a;
-    border: 2px solid #ff6b35;
-    border-radius: 8px;
+    background-color: var(--bg-card);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
     padding: 25px;
     width: 320px;
+    transition: var(--transition);
+}
+
+.tournament-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
 }
 
 .tournament-card img {
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 8px;
     margin-bottom: 15px;
 }
 
 .tournament-card h3 {
-    color: #ff6b35;
+    color: var(--primary);
     margin-bottom: 15px;
 }
 
 .tournament-card p {
     margin-bottom: 10px;
+    color: var(--text-muted);
 }
 
 .rules-section {
-    background-color: #2a2a2a;
+    background-color: var(--bg-card);
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 12px;
     max-width: 800px;
     margin: 0 auto;
-    border: 2px solid #ff6b35;
+    border: 2px solid var(--primary);
+    transition: var(--transition);
 }
 
 .rules-section h3 {
-    color: #ff6b35;
+    color: var(--primary);
     font-size: 24px;
     margin-bottom: 20px;
 }
@@ -301,6 +436,7 @@ nav a:hover {
 .rules-section ul {
     list-style-position: inside;
     line-height: 2;
+    color: var(--text-muted);
 }
 
 .rules-section li {
@@ -309,7 +445,8 @@ nav a:hover {
 
 .about-content {
     padding: 60px 0;
-    background-color: #1a1a1a;
+    background-color: var(--bg-dark);
+    transition: var(--transition);
 }
 
 .about-section {
@@ -323,11 +460,12 @@ nav a:hover {
     width: 400px;
     height: 300px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .about-text h3 {
-    color: #ff6b35;
+    color: var(--primary);
     font-size: 24px;
     margin-bottom: 15px;
 }
@@ -335,28 +473,34 @@ nav a:hover {
 .about-text p {
     margin-bottom: 15px;
     line-height: 1.8;
+    color: var(--text-muted);
 }
 
 .mission-section {
-    background-color: #2a2a2a;
+    background-color: var(--bg-card);
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 50px;
     text-align: center;
-    border: 2px solid #ff6b35;
+    border: 2px solid var(--primary);
+    transition: var(--transition);
 }
 
 .mission-section h3 {
-    color: #ff6b35;
+    color: var(--primary);
     font-size: 24px;
     margin-bottom: 15px;
+}
+
+.mission-section p {
+    color: var(--text-muted);
 }
 
 .values h3 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 30px;
-    color: #ff6b35;
+    color: var(--primary);
 }
 
 .values-list {
@@ -367,23 +511,34 @@ nav a:hover {
 }
 
 .value-item {
-    background-color: #2a2a2a;
+    background-color: var(--bg-card);
     padding: 25px;
-    border-radius: 8px;
+    border-radius: 12px;
     width: 280px;
     text-align: center;
-    border: 2px solid #ff6b35;
+    border: 2px solid var(--primary);
+    transition: var(--transition);
+}
+
+.value-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
 }
 
 .value-item h4 {
-    color: #ff6b35;
+    color: var(--primary);
     margin-bottom: 10px;
     font-size: 20px;
 }
 
+.value-item p {
+    color: var(--text-muted);
+}
+
 .contact-content {
     padding: 60px 0;
-    background-color: #1a1a1a;
+    background-color: var(--bg-dark);
+    transition: var(--transition);
 }
 
 .contact-wrapper {
@@ -398,7 +553,7 @@ nav a:hover {
 }
 
 .contact-info h3 {
-    color: #ff6b35;
+    color: var(--primary);
     font-size: 24px;
     margin-bottom: 20px;
 }
@@ -406,6 +561,7 @@ nav a:hover {
 .contact-info p {
     margin-bottom: 15px;
     line-height: 1.8;
+    color: var(--text-muted);
 }
 
 .contact-info img {
@@ -413,21 +569,23 @@ nav a:hover {
     max-width: 400px;
     height: 250px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-top: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .contact-form {
     flex: 1;
     min-width: 300px;
-    background-color: #2a2a2a;
+    background-color: var(--bg-card);
     padding: 30px;
-    border-radius: 8px;
-    border: 2px solid #ff6b35;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    transition: var(--transition);
 }
 
 .contact-form h3 {
-    color: #ff6b35;
+    color: var(--primary);
     font-size: 24px;
     margin-bottom: 20px;
 }
@@ -439,20 +597,27 @@ nav a:hover {
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: #ff6b35;
+    color: var(--primary);
     font-weight: bold;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 10px;
-    border: 2px solid #ff6b35;
-    border-radius: 5px;
+    padding: 12px;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
     font-size: 16px;
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
 .form-group textarea {
@@ -460,15 +625,151 @@ nav a:hover {
 }
 
 footer {
-    background-color: #0d0d0d;
-    color: white;
+    background-color: var(--bg-darker);
+    color: var(--text-light);
     text-align: center;
     padding: 25px 0;
     margin-top: 50px;
-    border-top: 3px solid #ff6b35;
+    border-top: 3px solid var(--primary);
+    transition: var(--transition);
 }
 
 footer p {
     font-size: 14px;
+    color: var(--text-muted);
 }
 
+/* Registration Page Styles */
+.register-content {
+    padding: 60px 0;
+    background-color: var(--bg-dark);
+    transition: var(--transition);
+}
+
+.register-wrapper {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.register-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.register-info h3 {
+    color: var(--primary);
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.benefit-item {
+    background-color: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+    transition: var(--transition);
+}
+
+.benefit-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 5px 20px rgba(59, 130, 246, 0.15);
+}
+
+.benefit-item h4 {
+    color: var(--primary);
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.benefit-item p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.register-form {
+    flex: 1;
+    min-width: 350px;
+    background-color: var(--bg-card);
+    padding: 35px;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    transition: var(--transition);
+}
+
+.register-form h3 {
+    color: var(--primary);
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.form-group select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-muted);
+}
+
+.login-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.login-link a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
